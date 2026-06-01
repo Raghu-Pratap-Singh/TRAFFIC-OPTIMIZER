@@ -1,0 +1,31 @@
+{
+  "graph": [...],
+
+  "hospitals": [
+    {
+      "id": "H1",
+      "node": 0,
+      "ambulances": 2
+    }
+  ],
+
+  "vehicles": [
+    {
+      "id": "V1",
+      "currentNode": 2,
+      "destinationNode": 29
+    }
+  ],
+
+  "nodeToGrid": {
+    "0": 0,
+    "1": 0,
+    "2": 1
+  },
+
+  "blockedRoads": [
+    [17,18]
+  ],
+
+  "accidentNode": 18
+}
