@@ -1,31 +1,89 @@
 {
   "graph": [...],
 
+  "accidentNode": 18,
+
+  "blockedRoads": [
+    [17,18],
+    [18,19],
+    [18,23]
+  ],
+
   "hospitals": [
     {
       "id": "H1",
       "node": 0,
       "ambulances": 2
+    },
+    {
+      "id": "H2",
+      "node": 10,
+      "ambulances": 3
     }
   ],
 
   "vehicles": [
     {
       "id": "V1",
-      "currentNode": 2,
+      "currentNode": 13,
       "destinationNode": 29
+    },
+    {
+      "id": "V2",
+      "currentNode": 17,
+      "destinationNode": 25
     }
   ],
 
   "nodeToGrid": {
     "0": 0,
     "1": 0,
-    "2": 1
+    "2": 0,
+
+    "5": 1,
+    "6": 1,
+    "7": 1,
+
+    "10": 2,
+    "11": 2,
+    "12": 2,
+
+    "15": 3,
+    "16": 3,
+    "17": 3,
+    "18": 3,
+
+    "20": 4,
+    "21": 4,
+    "22": 4,
+
+    "25": 5,
+    "26": 5,
+    "27": 5
   },
 
-  "blockedRoads": [
-    [17,18]
+  "accidentGridIds": [
+    2,
+    3,
+    4
   ],
 
-  "accidentNode": 18
+  "boundaryGridIds": [
+    1,
+    5
+  ],
+
+  "boundaryNodes": [
+    5,
+    6,
+    7,
+    8,
+    9,
+
+    25,
+    26,
+    27,
+    28,
+    29
+  ]
 }
