@@ -27,7 +27,20 @@ class ALGO:
     # Time Complexity : O(number of boundary nodes) : linear
     def make_set_of_boundary_nodes(self, boundary_nodes:list[int]) -> set[int]:
         return set(boundary_nodes)
-
     
+    # this function makes set of blocked edges for efficient checking during running dijkstra
+    # Time Complexity : O(number of blocked roads) : linear
+    def make_set_of_blocked_roads(self, blocked_roads:list[list[int]]):
+        s = set()
+        for x,y in blocked_roads:
+            s.add((x, y))
+        return s
+    
+    # this is one of the main functions which return nearest hospital to accident site in concerned graph
+    def find_nearest_hospital(self, graph:list[list[int]], blocked_roads:list[list[int]], accident_node:int, hospitals:list[dict]) -> int:
+        pass
+
+
+
 
     
