@@ -12,18 +12,6 @@ class ALGO:
                 filtered.append(h)
         return filtered
 
-    # this function converts node->grid_id TO grid_id->node
-    # Time Complexity : O(number of nodes) : linear
-    def reverse_grid_mapping(self, node_to_grid:dict)->dict:
-        ans = {}
-        for node in node_to_grid:
-            grid_id = node_to_grid[node]
-            if (grid_id in ans):
-                ans[grid_id].append(node)
-            else:
-                ans[grid_id] = [node]
-        return ans
-    
     # this function makes set of boundary nodes for efficient checking during running dijkstra
     # Time Complexity : O(number of boundary nodes) : linear
     def make_set_of_boundary_nodes(self, boundary_nodes:list[int]) -> set[int]:
@@ -110,7 +98,7 @@ class ALGO:
             if covered_cnt == block_size:
                 break
     
-    def close_root_seperator(self, graph:list[list[list[int]]]):
+    def close_root_seperator(self, graph:list[list[list[int]]]) -> list[int]:
         # we will try to seperate groups of closely packed nodes in packs of root n nodes
         n:int = len(graph)
         block_size:int = math.floor(math.sqrt(n))
@@ -134,18 +122,26 @@ class ALGO:
                 group_number+=1
 
         # now the graph isdivided into approx root(N) groups in (V + E) time complexity
-    
-
-                
+        return node_to_block
         
-        
+# testing only
+# S = ALGO()
+# adj = [
+#     [[2,3],[1,4],[4,2]], #0
+#     [[0,4],[6,2],[10,2],[11,2]], #1
+#     [[0,3],[10,4],[3,4],[12,4]], #2
+#     [[2,4],[12,4],[5,3]], #3
+#     [[0,2],[7,3],[5,4],[8,2]], #4
+#     [[3,3],[4,4],[13,2],[14,2]], #5
+#     [[1,2],[7,2],[9,2]], #6
+#     [[4,3],[6,2],[8,3]], #7
+#     [[4,2],[7,3],[9,2],[13,2],[14,2]], #8
+#     [[6,2],[8,2],[11,2]], #9
+#     [[1,2],[2,4],[11,4],[12,4]], #10
+#     [[1,2],[9,2],[10,4]], #11
+#     [[2,4],[3,4],[10,4]], #12
+#     [[5,2],[8,2],[14,1]], #13
+#     [[5,2],[8,2],[13,1]]  #14
 
-        
-            
-
-
-            
-
-
-
-    
+# ]
+# S.close_root_seperator(adj)
