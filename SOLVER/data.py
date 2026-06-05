@@ -132,18 +132,3 @@ hospitals = [
         "ambulances": 0
     }
 ]
-
-# this is to be used after decomposing graph into groups (grids here)
-node_to_grid = {
-    0: 0, 1: 0, 2: 0, 3: 0, 4: 0,
-
-    5: 1, 6: 1, 7: 1, 8: 1, 9: 1,
-
-    10: 2, 11: 2, 12: 2, 13: 2, 14: 2,
-
-    15: 3, 16: 3, 17: 3, 18: 3, 19: 3,
-
-    20: 4, 21: 4, 22: 4, 23: 4, 24: 4,
-
-    25: 5, 26: 5, 27: 5, 28: 5, 29: 5
-}
