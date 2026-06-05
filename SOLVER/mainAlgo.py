@@ -1,6 +1,7 @@
 from data import *
 import heapq
-
+import math
+from collections import deque
 class ALGO:
     # this function filters hospitals with non zero ambulances availability only
     # Time Complexity : O(number of hospitals) : linear
@@ -37,7 +38,7 @@ class ALGO:
         return s
     
     # this is one of the main functions which return nearest hospital to accident site in concerned graph
-    def find_nearest_hospital(self, graph:list[list[int]], blocked_roads:list[list[int]], accident_node:int, all_hospitals:list[dict[str, int | str]]) -> tuple[dict[str, int | str] | list[int] | set[tuple[int]]]:
+    def find_nearest_hospital(self, graph:list[list[list[int]]], blocked_roads:list[list[int]], accident_node:int, all_hospitals:list[dict[str, int | str]]) -> tuple[dict[str, int | str] | list[int] | set[tuple[int]]]:
         # get set of blocked roads
         blocked_set = self.make_set_of_blocked_roads(blocked_roads)
         hospitals = self.filter_empty_hospitals(all_hospitals)
@@ -85,6 +86,58 @@ class ALGO:
 
         return (nearest_hospital, path, roads_in_line)
 
+
+    def bfs(self, node:int, graph:list[list[list[int]]], visited:list[int], block_size:int, node_to_block:list[int], group_number:int):
+        q = deque([node])
+        visited[node] = 1
+        node_to_block[node] = group_number
+
+        covered_cnt:int = 1
+        while q:
+            node = q.popleft()
+            for neighbour, weight in graph[node]:
+                if not visited[neighbour]:
+                    visited[neighbour] = 1
+                    covered_cnt+=1
+                    # assign group
+                    node_to_block[neighbour] = group_number
+
+                    # before appending to q, check if limit reached or not
+                    if covered_cnt == block_size:
+                        break
+                    # else, push in q
+                    q.append(neighbour)
+            if covered_cnt == block_size:
+                break
+    
+    def close_root_seperator(self, graph:list[list[list[int]]]):
+        # we will try to seperate groups of closely packed nodes in packs of root n nodes
+        n:int = len(graph)
+        block_size:int = math.floor(math.sqrt(n))
+
+        # now we will bfs block_size times onlt and map them in one group : O(V + E)
+        visited:list[int] = [0] * n
+        
+        # this list will tell node_to_block[node]->will give us the group it is assigned to
+        node_to_block:list[int] = [-1] * n
+
+        group_number:int = 0
+        for node in range(n):
+            if not visited[node]:
+                # IMPORTANT: (V + E) "For sparse, locally connected road networks, 
+                # a BFS limited to √N nodes should produce connected groups that are geographically close."
+                # start bfs from here until root n nodes are covered
+                # also in reality, road lengths are almost similar, so bfs will work fine
+                # as we are considering graph very dense (of a district or region)
+                # therefore almost root(n) + (∆) nodes will be covered in each group
+                self.bfs(node, graph, visited, block_size, node_to_block, group_number)
+                group_number+=1
+
+        # now the graph isdivided into approx root(N) groups in (V + E) time complexity
+    
+
+                
+        
         
 
         
