@@ -215,3 +215,32 @@ class ALGO:
 
 # ]
 # S.close_root_seperator(adj)
+# hospitalss = [
+#     {
+#         "id": "H1",
+#         "node": 4,
+#         "ambulances": 2
+#     },
+#     {
+#         "id": "H4",
+#         "node": 6,
+#         "ambulances": 1
+#     },
+
+#     # No ambulances available
+
+    
+#     {
+#         "id": "H7",
+#         "node": 8,
+#         "ambulances": 0
+#     }
+# ]
+# blocked_roads_adj = [
+#     [1, 10],
+#     [2, 10],
+#     [4, 5]
+# ]
+# response = S.find_nearest_hospital(adj,blocked_roads_adj,12, hospitalss)
+# for x in response:
+#     print(x)
