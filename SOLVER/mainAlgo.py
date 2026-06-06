@@ -98,7 +98,7 @@ class ALGO:
             if covered_cnt == block_size:
                 break
     
-    def close_root_seperator(self, graph:list[list[list[int]]]) -> list[int]:
+    def close_root_seperator(self, graph:list[list[list[int]]]) -> tuple[list[int] | int]:
         # we will try to seperate groups of closely packed nodes in packs of root n nodes
         n:int = len(graph)
         block_size:int = math.floor(math.sqrt(n))
@@ -122,8 +122,78 @@ class ALGO:
                 group_number+=1
 
         # now the graph isdivided into approx root(N) groups in (V + E) time complexity
-        return node_to_block
+        return (node_to_block, group_number)
+    
+    def mark_boundary_grids(self,n:int,  node_to_block:list[int], group_number:int, boundary_nodes:list[int], bloacked_roads:list[list[int]],graph:list[list[list[int]]], roads_in_line:set[tuple[int, int]]) -> list[int]:
+        # get set of boundary nodes
+        boundary_nodes_set:set[int] = self.make_set_of_boundary_nodes(boundary_nodes)
+        blocked_set:set[tuple[int, int]] = self.make_set_of_blocked_roads(bloacked_roads)
+        # now mark boundary groups with thier destination boundary nodes
+        marked:list[int] = [-1] * group_number
+        occured_unmarked_grid = set()
+        # mark boundary node grids first
+        for boundary_node in boundary_nodes:
+            marked[node_to_block[boundary_node]] = boundary_node
+
+        heap = [] #(dist, head, node)
+        visited = {} # {(head, node) : min_dist}
         
+
+        for node in range(n):
+            if node_to_block[node] in occured_unmarked_grid:
+                continue
+            if marked[node_to_block[node]] == -1:
+                
+                occured_unmarked_grid.add(node_to_block[node])
+                visited[(node, node)] = 0
+                heapq.heappush(heap, (0, node, node))
+
+        # now start dijkstra from unmarked grids
+        while heap:
+            dist, head, node = heapq.heappop(heap)
+
+            if dist > visited[(head, node)]:
+                continue
+                
+            if marked[node_to_block[head]]!=-1:
+                continue
+            
+            if node in boundary_nodes_set:
+                marked[node_to_block[head]] = node
+                continue
+            for neighbour, w in graph[node]:
+                # check that this connection should not be in blcoked roads or in path of emergency vehicle
+                edge:tuple[int, int] = (min(neighbour, node), max(neighbour, node))
+                if (edge in blocked_set) or (edge in roads_in_line):
+                    continue
+
+                new_dist = dist + w
+                key = (head, neighbour)
+                if (key not in visited) or (visited[key] > new_dist):
+                    visited[key] = new_dist
+                    # check if this is a boundary node
+                    heapq.heappush(heap, (new_dist, head, neighbour))
+
+
+        #important : if marked[group] == -1, means the current group cannot currently be evacuated 
+        # where marked[group_number] = target exit point
+        return marked
+    
+
+        
+            
+
+
+
+
+
+            
+
+
+
+
+        
+    
 # testing only
 # S = ALGO()
 # adj = [
