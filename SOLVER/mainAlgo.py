@@ -124,10 +124,10 @@ class ALGO:
         # now the graph isdivided into approx root(N) groups in (V + E) time complexity
         return (node_to_block, group_number)
     
-    def mark_boundary_grids(self,n:int,  node_to_block:list[int], group_number:int, boundary_nodes:list[int], bloacked_roads:list[list[int]],graph:list[list[list[int]]], roads_in_line:set[tuple[int, int]]) -> list[int]:
+    def mark_boundary_grids(self,n:int,  node_to_block:list[int], group_number:int, boundary_nodes:list[int], blocked_roads:list[list[int]],graph:list[list[list[int]]], roads_in_line:set[tuple[int, int]]) -> list[int]:
         # get set of boundary nodes
         boundary_nodes_set:set[int] = self.make_set_of_boundary_nodes(boundary_nodes)
-        blocked_set:set[tuple[int, int]] = self.make_set_of_blocked_roads(bloacked_roads)
+        blocked_set:set[tuple[int, int]] = self.make_set_of_blocked_roads(blocked_roads)
         # now mark boundary groups with thier destination boundary nodes
         marked:list[int] = [-1] * group_number
         occured_unmarked_grid = set()
@@ -214,7 +214,6 @@ class ALGO:
 #     [[5,2],[8,2],[13,1]]  #14
 
 # ]
-# S.close_root_seperator(adj)
 # hospitalss = [
 #     {
 #         "id": "H1",
@@ -241,6 +240,16 @@ class ALGO:
 #     [2, 10],
 #     [4, 5]
 # ]
-# response = S.find_nearest_hospital(adj,blocked_roads_adj,12, hospitalss)
+# acci_node = 12
+# (grid_map, gp_number) = S.close_root_seperator(adj)
+# response = S.find_nearest_hospital(adj,blocked_roads_adj,acci_node, hospitalss)
 # for x in response:
 #     print(x)
+
+# boundary_nodies = [
+#     3, 12, 10, 11, 9, 8, 14, 5
+# ]
+# destination = S.mark_boundary_grids(len(adj), grid_map, gp_number, boundary_nodies, blocked_roads_adj, adj, response[2])
+# print(grid_map)
+# print(destination)
+
