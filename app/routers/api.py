@@ -19,11 +19,11 @@ class UserRequest(BaseModel):
 #     }
 
 
-# @router.get("/hello")
-# async def hello():
-#     return {
-#         "message": "Hello from FastAPI"
-#     }
+@router.get("/hello")
+async def hello():
+    return {
+        "message": "Hello from FastAPI"
+    }
 
 @router.post("/calc")
 async def calculate(data: UserRequest):
