@@ -1,7 +1,9 @@
-from data import *
+from .data import *
 import heapq
 import math
 from collections import deque
+
+
 class ALGO:
     # this function filters hospitals with non zero ambulances availability only
     # Time Complexity : O(number of hospitals) : linear
@@ -26,7 +28,7 @@ class ALGO:
         return s
     
     # this is one of the main functions which return nearest hospital to accident site in concerned graph
-    def find_nearest_hospital(self, graph:list[list[list[int]]], blocked_roads:list[list[int]], accident_node:int, all_hospitals:list[dict[str, int | str]]) -> tuple[dict[str, int | str] | list[int] | set[tuple[int]]]:
+    def find_nearest_hospital(self, graph:list[list[list[int]]], blocked_roads:list[list[int]], accident_node:int, all_hospitals:list[dict[str, int | str]]) -> tuple[dict[str, int | str], list[int], set[tuple[int]]]:
         # get set of blocked roads
         blocked_set = self.make_set_of_blocked_roads(blocked_roads)
         hospitals = self.filter_empty_hospitals(all_hospitals)
@@ -182,12 +184,28 @@ class ALGO:
 
         
             
+class client:
+    def solve(self, data):
+        S = ALGO()
+        (node_to_grid, gp_number) = S.close_root_seperator(data.graph)
+        (nearest_hospital, path, roads_in_line) = S.find_nearest_hospital(data.graph, 
+                                                                          data.blocked_roads, 
+                                                                          data.accident_node, 
+                                                                          data.hospitals)
+        destination = S.mark_boundary_grids(len(data.graph),
+                                            node_to_grid,
+                                            gp_number,
+                                            data.boundary_nodes,
+                                            data.blocked_roads,
+                                            data.graph,
+                                            roads_in_line)
+        return {
+            "grid_map" : node_to_grid,
+            "nearest_hospital" : nearest_hospital,
+            "emergency_vehicle_path" : path,
+            "grid_destination" : destination
 
-
-
-
-
-            
+        }
 
 
 
