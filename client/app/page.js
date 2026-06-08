@@ -4,7 +4,7 @@ import React, { useState } from "react"
 function Page() {
   let [string, SetString] = useState("");
   async function send() {
-    let response = await fetch("http://127.0.0.1:8000/", {
+    let response = await fetch("http://127.0.0.1:5000/", {
       method:"GET",
       credentials:"include"
     })
