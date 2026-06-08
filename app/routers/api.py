@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
 from SOLVER.mainAlgo import client
-router = APIRouter(prefix="/api", tags=["API"])
+router = APIRouter()
 
 class UserRequest(BaseModel):
     graph : list[list[list[int]]]
@@ -21,9 +21,11 @@ class UserRequest(BaseModel):
 
 @router.get("/hello")
 async def hello():
-    return {
+    response = {
         "message": "Hello from FastAPI"
     }
+    print(response)
+    return response
 
 @router.post("/calc")
 async def calculate(data: UserRequest):

@@ -31,10 +31,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // use routers
-app.get("/", (req, res)=>{
-    return res.status(200).json({
-        message : "working fine"
+app.get("/", async (req, res)=>{
+    const response = await fetch("http://localhost:8000/hello",{
+        method:"GET"
     })
+    console.log(response)
+    const data = await response.json();
+    return res.status(200).json(data)
 })
 
 // create HTTP server

@@ -15,7 +15,8 @@ app.add_middleware(
     allow_origins=[
         FRONTEND_URL,
         "http://localhost:3000",
-        "http://localhost:5173",  # Vite
+        "http://localhost:5173",
+        "http://localhost:5000"
     ],
     allow_credentials=True,
     allow_methods=["*"],
